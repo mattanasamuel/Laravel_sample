@@ -8,6 +8,11 @@ use App\Models\User;
 
 class PagesController extends Controller
 {
+    public function root():View
+    {
+        return view('pages.root');
+    }
+
     public function about():View
     {
         //return View::make('pages.about');
@@ -31,7 +36,17 @@ class PagesController extends Controller
         $staff = User::paginate(10); //solo i primi 10
         $title = "list of staff";
         //return View::make('pages.about');
-        return view('pages.staff', compact('staff', 'title')); //compatta i valori delle variabili in un array che passo alla vista
+        //return view('pages.staff', compact('staff', 'title')); //compatta i valori delle variabili in un array che passo alla vista
+
+
+        return view('pages.staff')
+            ->with('staff', $staff)
+            ->with('title', $title); //stessa funzione abbreviata
+
+        /* funziona solo teoricamente
+        return view('pages.staff')
+            ->withTitle($title)
+            -withStaff($staff); */
     }
 
     public function blog():View
